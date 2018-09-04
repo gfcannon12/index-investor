@@ -1,0 +1,42 @@
+{
+  "interactionModel": {
+    "languageModel": {
+      "invocationName": "index investor",
+      "types": [
+
+      ],
+      "intents": [
+        {
+          "name": "AMAZON.CancelIntent",
+          "samples": [
+
+          ]
+        },
+        {
+          "name": "AMAZON.HelpIntent",
+          "samples": [
+
+          ]
+        },
+        {
+          "name": "AMAZON.StopIntent",
+          "samples": [
+
+          ]
+        },
+        {
+          "name": "SPIntent",
+          "slots": [
+
+          ],
+          "samples": [
+            "how is the market",
+            "how is the market doing",
+            "what is the market like",
+            "how is the stock market"
+          ]
+        }
+      ]
+    }
+  }
+}
