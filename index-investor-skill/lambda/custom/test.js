@@ -1,10 +1,12 @@
 const index = require('./index.js');
 
-try {
-  let inputFile = require('./LaunchHandlerInput.js');
-  let input = inputFile.handlerInput;
-  index.LaunchRequestHandler.handle(input);
-  console.log('Test Complete')
-} catch(e) {
-  console.error(e);
-}
+(async () => {
+  try {
+    const inputFile = require('./LaunchHandlerInput.js');
+    const input = inputFile.handlerInput;
+    const output = await index.LaunchRequestHandler.handle(input);
+    console.log('Test Complete')
+  } catch(e) {
+    console.error(e);
+  }
+})();

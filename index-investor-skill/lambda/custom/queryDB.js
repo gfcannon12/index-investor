@@ -45,7 +45,7 @@ exports.pullData = function(closeCol, quoteName) {
       if (diff === 0) {
         result.speechText = `The last close for ${quoteName} was ${lastRound}. This is the all-time high!`;
         resolve(result);
-      } else if (diff < 1) {
+      } else if (diffPct < 1) {
         result.speechText = `The last close for ${quoteName} was ${lastRound}. This is less than one percent below the record high of ${maxRound}, which occurred on <say-as interpret-as="date">${maxDateStr}</say-as>`;
         resolve(result);
       } else {
