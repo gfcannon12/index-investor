@@ -43,13 +43,13 @@ exports.pullData = function(closeCol, quoteName) {
       let result = {};
       result.cardText = `Last Close: ${last}\nMax Close: ${max}`
       if (diff === 0) {
-        result.speechText = `The last close for ${quoteName} was ${lastRound}. This is the all-time high!`;
+        result.speechText = `The last <phoneme alphabet='ipa' ph='kloʊzz'>close</phoneme> for ${quoteName} was ${lastRound}. This is the all-time high!`;
         resolve(result);
       } else if (diffPct < 1) {
-        result.speechText = `The last close for ${quoteName} was ${lastRound}. This is less than one percent below the record high of ${maxRound}, which occurred on <say-as interpret-as="date">${maxDateStr}</say-as>`;
+        result.speechText = `The last <phoneme alphabet='ipa' ph='kloʊzz'>close</phoneme> for ${quoteName} was ${lastRound}. This is less than one percent below the record high of ${maxRound}, which occurred on <say-as interpret-as="date">${maxDateStr}</say-as>`;
         resolve(result);
       } else {
-        result.speechText = `The last close for ${quoteName} was ${lastRound}. This is ${diffPct} percent below the record high of ${maxRound}, which occurred on <say-as interpret-as="date">${maxDateStr}</say-as>`;
+        result.speechText = `The last <phoneme alphabet='ipa' ph='kloʊzz'>close</phoneme> for ${quoteName} was ${lastRound}. This is ${diffPct} percent below the record high of ${maxRound}, which occurred on <say-as interpret-as="date">${maxDateStr}</say-as>`;
         resolve(result);
       }
 
