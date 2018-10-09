@@ -24,11 +24,11 @@ exports.pullData = function(closeCol, quoteName) {
       const client = await pool.connect()
 
       const lastRes = await client.query(`SELECT ${closeCol} FROM index_investor order by date desc`);
-      const last = lastRes.rows[0][closeCol];
+      const last = lastRes.rows[0][closeCol].toFixed(2);
       const lastRound = Math.round(last);
 
       const maxRes = await client.query(`SELECT date, ${closeCol} FROM index_investor order by ${closeCol} desc`);
-      const max = maxRes.rows[0][closeCol];
+      const max = maxRes.rows[0][closeCol].toFixed(2);
       const maxRound = Math.round(max);
       let maxDateStr = maxRes.rows[0].date;
       const maxDateArr = maxDateStr.split('-');
