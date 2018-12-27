@@ -1,3 +1,6 @@
+# I am using daily_data.py for my scheduled lambda function
+# That uses psycopg whereas this uses sqlalchemy
+
 import requests
 import os
 import json

@@ -4,6 +4,14 @@ def lambda_handler(event, context):
     import json
     import datetime
     import psycopg2
+    import pytz
+    
+    ny_tz = pytz.timezone('America/New_York')
+    ny_now = datetime.datetime.now(tz=ny_tz)
+    
+    if ny_now.hour != 16:
+        print('It is not 4pm in NY, so we are not updating with new data')
+        return
 
     current_day = datetime.datetime.today()
     day_string = current_day.strftime('%Y-%m-%d')
