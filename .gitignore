@@ -4,3 +4,4 @@ index-investor-skill/.ask
 .vscode
 index-investor-skill/lambda/custom/node_modules
 scheduled_python
+scheduled_chart
