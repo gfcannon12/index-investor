@@ -3,6 +3,7 @@
 
 const Alexa = require('ask-sdk-core');
 const queryDB = require('./queryDB.js');
+const document = require('./apl_template.json');
 
 const LaunchRequestHandler = {
   canHandle(handlerInput) {
@@ -23,8 +24,20 @@ const SPIntentHandler = {
       const responseElements  = await queryDB.pullData('sp500_close', 'the S and P 500');
       console.log('data retrieved')
       const builtResponse = handlerInput.responseBuilder
+      .addDirective({
+        type : 'Alexa.Presentation.APL.RenderDocument',
+        document : document,
+        datasources: {
+          "displayData": {
+            "type": "object",
+            "properties": {
+              "cardText": responseElements.cardText.split("\n").join("<br>")
+            }
+          }
+        }
+      })
       .speak(responseElements.speechText)
-      .withSimpleCard('S&P 500', responseElements.cardText)
+      .withSimpleCard('S&P 500', responseElements.cardText)    
       .getResponse()
       console.log('Response', builtResponse);
       return builtResponse;;
