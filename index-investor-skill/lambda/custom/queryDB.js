@@ -23,8 +23,9 @@ exports.pullData = function(closeCol, quoteName) {
     try {
       const client = await pool.connect()
 
-      const lastRes = await client.query(`SELECT ${closeCol} FROM index_investor order by date desc`);
+      const lastRes = await client.query(`SELECT date, ${closeCol} FROM index_investor order by date desc`);
       const last = lastRes.rows[0][closeCol].toFixed(2);
+      const lastDate = lastRes.rows[0]['date'];
       const lastRound = Math.round(last);
 
       const maxRes = await client.query(`SELECT date, ${closeCol} FROM index_investor order by ${closeCol} desc`);
@@ -41,6 +42,7 @@ exports.pullData = function(closeCol, quoteName) {
       await client.release();
 
       let result = {};
+      result.lastDate = lastDate;
       result.cardText = `Last Close: ${last}\nMax Close: ${max}`
       if (diff === 0) {
         result.speechText = `The last <phoneme alphabet='ipa' ph='kloʊzz'>close</phoneme> for ${quoteName} was ${lastRound}. This is the all-time high!`;

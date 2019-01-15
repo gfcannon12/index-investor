@@ -1,0 +1,193 @@
+{
+    "document": {
+        "type": "APL",
+        "version": "1.0",
+        "theme": "dark",
+        "import": [
+            {
+                "name": "alexa-layouts",
+                "version": "1.0.0"
+            }
+        ],
+        "resources": [
+            {
+                "description": "Stock color for the light theme",
+                "colors": {
+                    "colorTextPrimary": "#151920"
+                }
+            },
+            {
+                "description": "Stock color for the dark theme",
+                "when": "${viewport.theme == 'dark'}",
+                "colors": {
+                    "colorTextPrimary": "#f0f1ef"
+                }
+            },
+            {
+                "description": "Standard font sizes",
+                "dimensions": {
+                    "textSizeBody": 48,
+                    "textSizePrimary": 27,
+                    "textSizeSecondary": 23,
+                    "textSizeSecondaryHint": 25
+                }
+            },
+            {
+                "description": "Common spacing values",
+                "dimensions": {
+                    "spacingThin": 6,
+                    "spacingSmall": 12,
+                    "spacingMedium": 24,
+                    "spacingLarge": 48,
+                    "spacingExtraLarge": 72
+                }
+            },
+            {
+                "description": "Common margins and padding",
+                "dimensions": {
+                    "marginTop": 40,
+                    "marginLeft": 60,
+                    "marginRight": 60,
+                    "marginBottom": 40
+                }
+            }
+        ],
+        "styles": {
+            "textStyleBase": {
+                "description": "Base font description; set color and core font family",
+                "values": [
+                    {
+                        "color": "@colorTextPrimary",
+                        "fontFamily": "Amazon Ember"
+                    }
+                ]
+            },
+            "textStyleBase0": {
+                "description": "Thin version of basic font",
+                "extend": "textStyleBase",
+                "values": {
+                    "fontWeight": "100"
+                }
+            },
+            "textStyleBase1": {
+                "description": "Light version of basic font",
+                "extend": "textStyleBase",
+                "values": {
+                    "fontWeight": "300"
+                }
+            },
+            "mixinBody": {
+                "values": {
+                    "fontSize": "@textSizeBody"
+                }
+            },
+            "mixinPrimary": {
+                "values": {
+                    "fontSize": "@textSizePrimary"
+                }
+            },
+            "mixinSecondary": {
+                "values": {
+                    "fontSize": "@textSizeSecondary"
+                }
+            },
+            "textStylePrimary": {
+                "extend": [
+                    "textStyleBase1",
+                    "mixinPrimary"
+                ]
+            },
+            "textStyleSecondary": {
+                "extend": [
+                    "textStyleBase0",
+                    "mixinSecondary"
+                ]
+            },
+            "textStyleBody": {
+                "extend": [
+                    "textStyleBase1",
+                    "mixinBody"
+                ]
+            },
+            "textStyleSecondaryHint": {
+                "values": {
+                    "fontFamily": "Bookerly",
+                    "fontStyle": "italic",
+                    "fontSize": "@textSizeSecondaryHint",
+                    "color": "@colorTextPrimary"
+                }
+            }
+        },
+        "layouts": {},
+        "mainTemplate": {
+            "parameters": [
+                "datasource"
+            ],
+            "items": [
+                {
+                    "when": "${viewport.shape == 'round'}",
+                    "type": "Container",
+                    "alignItems": "center",
+                    "paddingTop": "10vh",
+                    "direction": "column",
+                    "items": [
+                        {
+                            "type": "Image",
+                            "width": "70vw",
+                            "height": "70vh",
+                            "source": "${datasource.displayData.properties.chartURL}",
+                            "scale": "best-fill",
+                            "align": "center"
+                        },
+                        {
+                            "type": "Text",
+                            "text": "${datasource.displayData.properties.cardText}",
+                            "align": "center",
+                            "fontSize": "25dp",
+                            "paddingTop": "1vh"
+                        }
+                    ]
+                },
+                {
+                    "when": "${viewport.shape != 'round'}",
+                    "type": "Container",
+                    "alignItems": "left",
+                    "direction": "row",
+                    "paddingLeft": "3vw",
+                    "items": [
+                        {
+                            "type": "Image",
+                            "width": "53vw",
+                            "height": "95vh",
+                            "source": "${datasource.displayData.properties.chartURL}",
+                            "scale": "best-fill",
+                            "align": "center"
+                        },
+                        {
+                            "type": "Container",
+                            "direction": "column",
+                            "paddingTop": "20vh",
+                            "items": [
+                                {
+                                    "type": "Text",
+                                    "text": "${datasource.displayData.properties.cardText}",
+                                    "align": "center",
+                                    "fontSize": "30dp"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    },
+    "dataSources": {
+        "displayData": {
+            "type": "object",
+            "properties": {
+                "cardText": "Last Close: 8888.88<br>Max Close: 9999.99",
+                "chartURL": "https://s3.amazonaws.com/index-investor/charts/sp500_close_2019-01-14.png"
+            }
+        }
+    }
+}

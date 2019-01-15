@@ -132,9 +132,9 @@
                 "items": [
                     {
                         "type": "Image",
-                        "width": "82vw",
-                        "height": "63vh",
-                        "source": "https://s3.amazonaws.com/index-investor/sp500_close.png",
+                        "width": "70vw",
+                        "height": "70vh",
+                        "source": "${datasource.displayData.properties.chartURL}",
                         "scale": "best-fill",
                         "align": "center"
                     },
@@ -142,7 +142,8 @@
                         "type": "Text",
                         "text": "${datasource.displayData.properties.cardText}",
                         "align": "center",
-                        "fontSize": "25dp"
+                        "fontSize": "25dp",
+                        "paddingTop": "1vh"
                     }
                 ]
             },
@@ -151,12 +152,13 @@
                 "type": "Container",
                 "alignItems": "left",
                 "direction": "row",
+                "paddingLeft": "3vw",
                 "items": [
                     {
                         "type": "Image",
-                        "width": "68vw",
-                        "height": "94vh",
-                        "source": "https://s3.amazonaws.com/index-investor/sp500_close.png",
+                        "width": "53vw",
+                        "height": "95vh",
+                        "source": "${datasource.displayData.properties.chartURL}",
                         "scale": "best-fill",
                         "align": "center"
                     },
