@@ -1,8 +1,9 @@
 def lambda_handler(event, context):
-    import pandas as pd
+    import platform
     import os
     import datetime
     import boto3
+    import pandas as pd
     import matplotlib.pyplot as plt
     from sqlalchemy import create_engine
     
@@ -38,9 +39,13 @@ def lambda_handler(event, context):
     df.reset_index(inplace=True)
     mark = df[df[col] == max_value].index
     
-    filename = 'charts/' + col + '_' + mrd_str + '.png'
-    #filepath = '/tmp/' + filename
-    filepath = './' + filename
+    filename = col + '_' + mrd_str + '.png'
+    if platform.system() == 'Darwin':
+        print('running locally')
+        filepath = './' + filename
+    else:
+        print('running on Lambda')
+        filepath = '/tmp/' + filename
     
     plt.style.use('dark_background')
     plt.figure(figsize=[7.2,7.2])
@@ -54,7 +59,7 @@ def lambda_handler(event, context):
     
     s3 = boto3.client('s3')
     bucket_name = 'index-investor'
-    s3.upload_file(filepath, bucket_name, filename)
-    return filename + ' uploaded to s3'
+    s3.upload_file(filepath, bucket_name, 'charts/' + filename)
+    print(filename + ' uploaded to ' + bucket_name + ' bucket, charts folder' )
 
 lambda_handler('test', 'test')
