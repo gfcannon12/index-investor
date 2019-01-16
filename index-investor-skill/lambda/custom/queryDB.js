@@ -1,5 +1,4 @@
 const pg = require("pg");
-const client = new pg.Client(process.env.DB_STR);
 const creds = {
   database: process.env.database,
   user: process.env.user,
@@ -10,53 +9,61 @@ const creds = {
 }
 const pool = new pg.Pool(creds);
 
-const dateTime = new Date;
-const year = dateTime.getFullYear();
-const month = dateTime.getMonth();
-const day = dateTime.getDate();
-const today = new Date(year, month, day);
+function getDiff(last, other) {
+  const diff = (last - other) / other;
+  const diffPct = (diff * 100).toFixed(2);
+  let diffSign;
+  if (diffPct < 0) {
+    diffCard = '-' + Math.abs(diffPct);
+  } else if (diffPct === 0.00) {
+    diffCard = 'FLAT';
+  } else {
+    diffCard = '+' + diffPct;
+  }
 
-// write more code to figure out weeks, months, years
+  const diffs = {}
+  diffs.diff = diff;
+  diffs.diffPct = diffPct;
+  diffs.card = diffCard;
+  diffs.speak = Math.abs(diffPct);
+  diffs.show = Math.abs(diffPct);
+  return diffs;
+}
 
 exports.pullData = function(closeCol, quoteName) {
   return new Promise(async(resolve, reject) => {
+    const client = await pool.connect()
     try {
-      const client = await pool.connect()
-
-      const lastRes = await client.query(`SELECT date, ${closeCol} FROM index_investor order by date desc`);
-      const last = lastRes.rows[0][closeCol].toFixed(2);
-      const lastDate = lastRes.rows[0]['date'];
-      const lastRound = Math.round(last);
-
-      const maxRes = await client.query(`SELECT date, ${closeCol} FROM index_investor order by ${closeCol} desc`);
-      const max = maxRes.rows[0][closeCol].toFixed(2);
-      const maxRound = Math.round(max);
-      let maxDateStr = maxRes.rows[0].date;
-      const maxDateArr = maxDateStr.split('-');
-      const maxDate = new Date(maxDateArr[0], maxDateArr[1]-1, maxDateArr[2]);
-      maxDateStr = maxDateArr[0].toString() + maxDateArr[1].toString() + maxDateArr[2].toString(); 
-      const diff = Math.abs((last - max) / max); 
-      let diffPct = Math.round(diff * 100);
-      let diffDays = today - maxDate;
-      diffDays = diff / 86400000;
+      const summary_res = await client.query(`SELECT * FROM index_summary where metric = '${closeCol}'`);
       await client.release();
+      const summary = {};
+      for (i=0;i<summary_res.rowCount;i++) {
+        const key = summary_res.rows[i]['period'];
+        summary[key] = summary_res.rows[i]
+      }
 
+      for (key of Object.keys(summary)) {
+        summary[key]['diffs'] = getDiff(summary['today']['value'], summary[key]['value']);
+        summary[key]['display'] = summary[key]['value'].toFixed(2);
+      }
+
+      const lastRound = Math.round(summary.today.value);
       let result = {};
-      result.lastDate = lastDate;
-      result.cardText = `Last Close: ${last}\nMax Close: ${max}`
-      if (diff === 0) {
-        result.speechText = `The last <phoneme alphabet='ipa' ph='kloʊzz'>close</phoneme> for ${quoteName} was ${lastRound}. This is the all-time high!`;
+      result.summary = summary;
+      result.lastDate = summary.today.date;
+      result.cardText = `Last Close: ${summary.today.display}\n1 Day:      ${summary.yesterday.display}   ${summary.yesterday.diffs.card}%\n30 Day:     ${summary.month.display}   ${summary.month.diffs.card}%\n365 Day:    ${summary.year.display}   ${summary.year.diffs.card}%\nMax Close:  ${summary.max.display}   ${summary.max.diffs.card}%\nMax Date:   ${summary.max.date}`;
+      if (summary.yesterday.diffs.diffPct === 0.000) {
+        result.speechText = `The last <phoneme alphabet='ipa' ph='kloʊzz'>close</phoneme> for ${quoteName} was ${lastRound}. This is roughly flat versus the previous <phoneme alphabet='ipa' ph='kloʊzz'>close</phoneme>`;
         resolve(result);
-      } else if (diffPct < 1) {
-        result.speechText = `The last <phoneme alphabet='ipa' ph='kloʊzz'>close</phoneme> for ${quoteName} was ${lastRound}. This is less than one percent below the record high of ${maxRound}, which occurred on <say-as interpret-as="date">${maxDateStr}</say-as>`;
+      } else if (summary.yesterday.diffs.diffPct < 0) {
+        result.speechText = `The last <phoneme alphabet='ipa' ph='kloʊzz'>close</phoneme> for ${quoteName} was ${lastRound}. This is down ${summary.yesterday.diffs.speak} percent versus the previous <phoneme alphabet='ipa' ph='kloʊzz'>close</phoneme>`;
         resolve(result);
       } else {
-        result.speechText = `The last <phoneme alphabet='ipa' ph='kloʊzz'>close</phoneme> for ${quoteName} was ${lastRound}. This is ${diffPct} percent below the record high of ${maxRound}, which occurred on <say-as interpret-as="date">${maxDateStr}</say-as>`;
+        result.speechText = `The last <phoneme alphabet='ipa' ph='kloʊzz'>close</phoneme> for ${quoteName} was ${lastRound}. This is up ${summary.yesterday.diffs.speak} percent versus the previous <phoneme alphabet='ipa' ph='kloʊzz'>close</phoneme>`;
         resolve(result);
       }
 
     } catch(e) {
-      await client.release();
       reject(e);
     }
   });

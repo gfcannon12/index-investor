@@ -140,10 +140,15 @@
                     },
                     {
                         "type": "Text",
-                        "text": "${datasource.displayData.properties.cardText}",
+                        "text": "Last Close: ${datasource.displayData.properties.summary.today.display}",
                         "align": "center",
-                        "fontSize": "25dp",
-                        "paddingTop": "1vh"
+                        "fontSize": "25dp"
+                    },
+                    {
+                        "type": "Text",
+                        "text": "1 Day: ${datasource.displayData.properties.summary.yesterday.display}",
+                        "align": "center",
+                        "fontSize": "25dp"
                     }
                 ]
             },
@@ -152,7 +157,7 @@
                 "type": "Container",
                 "alignItems": "left",
                 "direction": "row",
-                "paddingLeft": "3vw",
+                "paddingLeft": "1vw",
                 "items": [
                     {
                         "type": "Image",
@@ -166,11 +171,153 @@
                         "type": "Container",
                         "direction": "column",
                         "paddingTop": "20vh",
+                        "alignItems": "left",
                         "items": [
                             {
                                 "type": "Text",
-                                "text": "${datasource.displayData.properties.cardText}",
+                                "text": "Last Close:",
                                 "align": "center",
+                                "fontSize": "30dp"
+                            },
+                            {
+                                "type": "Text",
+                                "text": "1 Day:",
+                                "align": "center",
+                                "fontSize": "30dp"
+                            },
+                            {
+                                "type": "Text",
+                                "text": "30 Day:",
+                                "align": "center",
+                                "fontSize": "30dp"
+                            },
+                            {
+                                "type": "Text",
+                                "text": "365 Day:",
+                                "align": "center",
+                                "fontSize": "30dp"
+                            },
+                            {
+                                "type": "Text",
+                                "text": "Max Close:",
+                                "align": "center",
+                                "fontSize": "30dp"
+                            }
+                        ]
+                    },
+                    {
+                        "type": "Container",
+                        "direction": "column",
+                        "paddingTop": "20vh",
+                        "paddingLeft": "1vw",
+                        "alignItems": "right",
+                        "items": [
+                            {
+                                "type": "Text",
+                                "text": "${datasource.displayData.properties.summary.today.display}",
+                                "align": "right",
+                                "fontSize": "30dp"
+                            },
+                            {
+                                "type": "Text",
+                                "text": "${datasource.displayData.properties.summary.yesterday.display}",
+                                "align": "right",
+                                "fontSize": "30dp"
+                            },
+                            {
+                                "type": "Text",
+                                "text": "${datasource.displayData.properties.summary.month.display}",
+                                "align": "right",
+                                "fontSize": "30dp"
+                            },
+                            {
+                                "type": "Text",
+                                "text": "${datasource.displayData.properties.summary.year.display}",
+                                "align": "right",
+                                "fontSize": "30dp"
+                            },
+                            {
+                                "type": "Text",
+                                "text": "${datasource.displayData.properties.summary.max.display}",
+                                "align": "right",
+                                "fontSize": "30dp"
+                            }
+                        ]
+                    },
+                    {
+                        "type": "Container",
+                        "direction": "column",
+                        "paddingTop": "20vh",
+                        "paddingLeft": "1vw",
+                        "alignItems": "right",
+                        "items": [
+                            {
+                                "type": "Text",
+                                "text": " ",
+                                "align": "right",
+                                "fontSize": "30dp"
+                            },
+                            {
+                                "type": "Text",
+                                "text": "X",
+                                "align": "right",
+                                "fontSize": "30dp"
+                            },
+                            {
+                                "type": "Text",
+                                "text": "X",
+                                "align": "right",
+                                "fontSize": "30dp"
+                            },
+                            {
+                                "type": "Text",
+                                "text": "X",
+                                "align": "right",
+                                "fontSize": "30dp"
+                            },
+                            {
+                                "type": "Text",
+                                "text": "X",
+                                "align": "right",
+                                "fontSize": "30dp"
+                            }
+                        ]
+                    },
+                    {
+                        "type": "Container",
+                        "direction": "column",
+                        "paddingTop": "20vh",
+                        "paddingLeft": "1vw",
+                        "alignItems": "right",
+                        "items": [
+                            {
+                                "type": "Text",
+                                "text": " ",
+                                "align": "right",
+                                "fontSize": "30dp"
+                            },
+                            {
+                                "type": "Text",
+                                "text": "${datasource.displayData.properties.summary.yesterday.diffs.show}%",
+                                "align": "right",
+                                "fontSize": "30dp"
+                            },
+                            {
+                                "type": "Text",
+                                "text": "${datasource.displayData.properties.summary.month.diffs.show}%",
+                                "align": "right",
+                                "fontSize": "30dp"
+                            },
+                            {
+                                "type": "Text",
+                                "text": "${datasource.displayData.properties.summary.year.diffs.show}%",
+                                "align": "right",
+                                "fontSize": "30dp"
+                            },
+                            {
+                                "type": "Text",
+                                "text": "${datasource.displayData.properties.summary.max.diffs.show}%",
+                                "align": "right",
                                 "fontSize": "30dp"
                             }
                         ]

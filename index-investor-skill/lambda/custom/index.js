@@ -31,7 +31,7 @@ const SPIntentHandler = {
           "displayData": {
             "type": "object",
             "properties": {
-              "cardText": responseElements.cardText.split("\n").join("<br>"),
+              "summary": responseElements.summary,
               "chartURL": `https://s3.amazonaws.com/index-investor/charts/sp500_close_${responseElements.lastDate}.png`
             }
           }

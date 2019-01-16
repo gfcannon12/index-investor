@@ -141,10 +141,15 @@
                         },
                         {
                             "type": "Text",
-                            "text": "${datasource.displayData.properties.cardText}",
+                            "text": "Last Close: ${datasource.displayData.properties.summary.today.display}",
                             "align": "center",
-                            "fontSize": "25dp",
-                            "paddingTop": "1vh"
+                            "fontSize": "25dp"
+                        },
+                        {
+                            "type": "Text",
+                            "text": "1 Day: ${datasource.displayData.properties.summary.yesterday.display}",
+                            "align": "center",
+                            "fontSize": "25dp"
                         }
                     ]
                 },
@@ -153,7 +158,7 @@
                     "type": "Container",
                     "alignItems": "left",
                     "direction": "row",
-                    "paddingLeft": "3vw",
+                    "paddingLeft": "1vw",
                     "items": [
                         {
                             "type": "Image",
@@ -167,11 +172,153 @@
                             "type": "Container",
                             "direction": "column",
                             "paddingTop": "20vh",
+                            "alignItems": "left",
                             "items": [
                                 {
                                     "type": "Text",
-                                    "text": "${datasource.displayData.properties.cardText}",
+                                    "text": "Last Close:",
                                     "align": "center",
+                                    "fontSize": "30dp"
+                                },
+                                {
+                                    "type": "Text",
+                                    "text": "1 Day:",
+                                    "align": "center",
+                                    "fontSize": "30dp"
+                                },
+                                {
+                                    "type": "Text",
+                                    "text": "30 Day:",
+                                    "align": "center",
+                                    "fontSize": "30dp"
+                                },
+                                {
+                                    "type": "Text",
+                                    "text": "365 Day:",
+                                    "align": "center",
+                                    "fontSize": "30dp"
+                                },
+                                {
+                                    "type": "Text",
+                                    "text": "Max Close:",
+                                    "align": "center",
+                                    "fontSize": "30dp"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "Container",
+                            "direction": "column",
+                            "paddingTop": "20vh",
+                            "paddingLeft": "1vw",
+                            "alignItems": "right",
+                            "items": [
+                                {
+                                    "type": "Text",
+                                    "text": "${datasource.displayData.properties.summary.today.display}",
+                                    "align": "right",
+                                    "fontSize": "30dp"
+                                },
+                                {
+                                    "type": "Text",
+                                    "text": "${datasource.displayData.properties.summary.yesterday.display}",
+                                    "align": "right",
+                                    "fontSize": "30dp"
+                                },
+                                {
+                                    "type": "Text",
+                                    "text": "${datasource.displayData.properties.summary.month.display}",
+                                    "align": "right",
+                                    "fontSize": "30dp"
+                                },
+                                {
+                                    "type": "Text",
+                                    "text": "${datasource.displayData.properties.summary.year.display}",
+                                    "align": "right",
+                                    "fontSize": "30dp"
+                                },
+                                {
+                                    "type": "Text",
+                                    "text": "${datasource.displayData.properties.summary.max.display}",
+                                    "align": "right",
+                                    "fontSize": "30dp"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "Container",
+                            "direction": "column",
+                            "paddingTop": "20vh",
+                            "paddingLeft": "1vw",
+                            "alignItems": "right",
+                            "items": [
+                                {
+                                    "type": "Text",
+                                    "text": " ",
+                                    "align": "right",
+                                    "fontSize": "30dp"
+                                },
+                                {
+                                    "type": "Text",
+                                    "text": "X",
+                                    "align": "right",
+                                    "fontSize": "30dp"
+                                },
+                                {
+                                    "type": "Text",
+                                    "text": "X",
+                                    "align": "right",
+                                    "fontSize": "30dp"
+                                },
+                                {
+                                    "type": "Text",
+                                    "text": "X",
+                                    "align": "right",
+                                    "fontSize": "30dp"
+                                },
+                                {
+                                    "type": "Text",
+                                    "text": "X",
+                                    "align": "right",
+                                    "fontSize": "30dp"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "Container",
+                            "direction": "column",
+                            "paddingTop": "20vh",
+                            "paddingLeft": "1vw",
+                            "alignItems": "right",
+                            "items": [
+                                {
+                                    "type": "Text",
+                                    "text": " ",
+                                    "align": "right",
+                                    "fontSize": "30dp"
+                                },
+                                {
+                                    "type": "Text",
+                                    "text": "${datasource.displayData.properties.summary.yesterday.diffs.show}%",
+                                    "align": "right",
+                                    "fontSize": "30dp"
+                                },
+                                {
+                                    "type": "Text",
+                                    "text": "${datasource.displayData.properties.summary.month.diffs.show}%",
+                                    "align": "right",
+                                    "fontSize": "30dp"
+                                },
+                                {
+                                    "type": "Text",
+                                    "text": "${datasource.displayData.properties.summary.year.diffs.show}%",
+                                    "align": "right",
+                                    "fontSize": "30dp"
+                                },
+                                {
+                                    "type": "Text",
+                                    "text": "${datasource.displayData.properties.summary.max.diffs.show}%",
+                                    "align": "right",
                                     "fontSize": "30dp"
                                 }
                             ]
@@ -185,8 +332,8 @@
         "displayData": {
             "type": "object",
             "properties": {
-                "cardText": "Last Close: 8888.88<br>Max Close: 9999.99",
-                "chartURL": "https://s3.amazonaws.com/index-investor/charts/sp500_close_2019-01-14.png"
+                "chartURL": "https://s3.amazonaws.com/index-investor/charts/sp500_close_2019-01-14.png",
+                "summary": {"today":{"period":"today","date":"2019-01-15","value":2610.3,"metric":"sp500_close","diffs":{"diff":0,"diffPct":"0.00","card":"+0.00","speak":0,"show":0},"display":"2610.30"},"yesterday":{"period":"yesterday","date":"2019-01-14","value":2582.6101,"metric":"sp500_close","diffs":{"diff":0.010721672621043458,"diffPct":"1.07","card":"+1.07","speak":1.07,"show":1.07},"display":"2582.61"},"month":{"period":"month","date":"2018-12-14","value":2600.71,"metric":"sp500_close","diffs":{"diff":0.003687454579710981,"diffPct":"0.37","card":"+0.37","speak":0.37,"show":0.37},"display":"2600.71"},"year":{"period":"year","date":"2018-01-12","value":2786.24,"metric":"sp500_close","diffs":{"diff":-0.06314603192833339,"diffPct":"-6.31","card":"-6.31","speak":6.31,"show":6.31},"display":"2786.24"},"max":{"period":"max","date":"2018-09-20","value":2930.75,"metric":"sp500_close","diffs":{"diff":-0.10934061247121038,"diffPct":"-10.93","card":"-10.93","speak":10.93,"show":10.93},"display":"2930.75"}}
             }
         }
     }
