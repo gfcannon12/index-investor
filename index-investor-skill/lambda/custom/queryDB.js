@@ -12,7 +12,6 @@ const pool = new pg.Pool(creds);
 function getDiff(last, other) {
   const diff = (last - other) / other;
   const diffPct = (diff * 100).toFixed(2);
-  let diffSign;
   if (diffPct < 0) {
     diffCard = '-' + Math.abs(diffPct);
   } else if (diffPct === 0.00) {
@@ -22,11 +21,9 @@ function getDiff(last, other) {
   }
 
   const diffs = {}
-  diffs.diff = diff;
-  diffs.diffPct = diffPct;
+  diffs.diffPct = parseFloat(diffPct);
   diffs.card = diffCard;
   diffs.speak = Math.abs(diffPct);
-  diffs.show = Math.abs(diffPct);
   return diffs;
 }
 
@@ -52,7 +49,7 @@ exports.pullData = function(closeCol, quoteName) {
       result.summary = summary;
       result.lastDate = summary.today.date;
       result.cardText = `Last Close: ${summary.today.display}\n1 Day:      ${summary.yesterday.display}   ${summary.yesterday.diffs.card}%\n30 Day:     ${summary.month.display}   ${summary.month.diffs.card}%\n365 Day:    ${summary.year.display}   ${summary.year.diffs.card}%\nMax Close:  ${summary.max.display}   ${summary.max.diffs.card}%\nMax Date:   ${summary.max.date}`;
-      if (summary.yesterday.diffs.diffPct === 0.000) {
+      if (summary.yesterday.diffs.diffPct === 0.00) {
         result.speechText = `The last <phoneme alphabet='ipa' ph='kloʊzz'>close</phoneme> for ${quoteName} was ${lastRound}. This is roughly flat versus the previous <phoneme alphabet='ipa' ph='kloʊzz'>close</phoneme>`;
         resolve(result);
       } else if (summary.yesterday.diffs.diffPct < 0) {
