@@ -23,8 +23,7 @@ const SPIntentHandler = {
     try {
       const responseElements  = await queryDB.pullData('sp500_close', 'the S and P 500');
       console.log('data retrieved')
-      const builtResponse = handlerInput.responseBuilder
-      .addDirective({
+      const APLDirective = {
         type : 'Alexa.Presentation.APL.RenderDocument',
         document : document,
         datasources: {
@@ -36,10 +35,21 @@ const SPIntentHandler = {
             }
           }
         }
-      })
-      .speak(responseElements.speechText)
-      .withSimpleCard('S&P 500', responseElements.cardText)    
-      .getResponse()
+      }
+
+      let builtResponse;
+      if (handlerInput.requestEnvelope.context.System.device.supportedInterfaces['Alexa.Presentation.APL'] != undefined) {
+        builtResponse = handlerInput.responseBuilder
+        .addDirective(APLDirective)
+        .speak(responseElements.speechText)
+        .withSimpleCard('S&P 500', responseElements.cardText)    
+        .getResponse()
+      } else {
+        builtResponse = handlerInput.responseBuilder
+        .speak(responseElements.speechText)
+        .withSimpleCard('S&P 500', responseElements.cardText)    
+        .getResponse()
+      }
       console.log('Response', builtResponse);
       return builtResponse;;
     } catch(e) {
