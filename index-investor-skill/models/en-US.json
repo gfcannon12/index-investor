@@ -26,9 +26,6 @@
         },
         {
           "name": "SPIntent",
-          "slots": [
-
-          ],
           "samples": [
             "how is the s and p five hundred doing",
             "how is the s and p five hundred",
@@ -38,7 +35,65 @@
             "how is the market doing",
             "what is the market like",
             "how is the stock market",
-            "how are the markets doing"
+            "how are the markets doing",
+            "how are stocks doing",
+            "how are equities doing",
+            "how are U.S. stocks doing",
+            "how are American stocks doing",
+            "for the s and p five hundred",
+            "about the s and p five hundred",
+            "about the markets",
+            "about the stock market",
+            "for the markets",
+            "for the stock market"            
+          ]
+        },
+        {
+          "name": "DowIntent",
+          "samples": [
+            "how is the dow doing",
+            "how is the dow",
+            "how is the dow jones doing",
+            "how is the dow jones",
+            "how is the dow jones industrial average",
+            "how is the dow jones industrial average doing",
+            "what is the dow like",
+            "what is the dow jones like",
+            "what is the dow jones industrial average like",
+            "how is the dow today",
+            "how is the dow jones today",
+            "how is the dow jones industrial average today",
+            "how did the dow do today",
+            "how did the dow jones do today",
+            "how did the dow jones industrial average do today",
+            "for the dow",
+            "about the dow",
+            "for the dow jones",
+            "about the dow jones",
+            "for the dow jones industrial average",
+            "about the dow jones industrial average"            
+          ]
+        },
+        {
+          "name": "NasdaqIntent",
+          "samples": [
+            "how is the nasdaq doing",
+            "how is the nasdaq",
+            "how is the nasdaq composite doing",
+            "how is the nasdaq composite",
+            "how are tech stocks doing",
+            "how are technology stocks doing",
+            "how are I.T. stocks doing",
+            "what is the nasdaq like",
+            "what is the nasdaq composite like",
+            "how is the nasdaq today",
+            "how is the nasdaq composite today",
+            "how did the nasdaq do today",
+            "how did the nasdaq composite do today",
+            "for the nasdaq",
+            "about the nasdaq",
+            "for the nasdaq composite",
+            "about the nasdaq composite"
           ]
         }
       ]

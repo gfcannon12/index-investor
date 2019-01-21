@@ -5,3 +5,5 @@ index-investor-skill/.ask
 index-investor-skill/lambda/custom/node_modules
 scheduled_python
 scheduled_chart
+layer
+*.png
