@@ -7,3 +7,4 @@ scheduled_python
 scheduled_chart
 layer
 *.png
+!images/*

@@ -45,7 +45,10 @@
             "about the markets",
             "about the stock market",
             "for the markets",
-            "for the stock market"            
+            "for the stock market",
+            "show me the s and p five hundred",
+            "show me the stock market",
+            "show me the markets"            
           ]
         },
         {
@@ -71,7 +74,10 @@
             "for the dow jones",
             "about the dow jones",
             "for the dow jones industrial average",
-            "about the dow jones industrial average"            
+            "about the dow jones industrial average",
+            "show me the dow",
+            "show me the dow jones",
+            "show me the dow jones industrial average"            
           ]
         },
         {
@@ -93,7 +99,9 @@
             "for the nasdaq",
             "about the nasdaq",
             "for the nasdaq composite",
-            "about the nasdaq composite"
+            "about the nasdaq composite",
+            "show me the nasdaq",
+            "show me the nasdaq composite"
           ]
         }
       ]

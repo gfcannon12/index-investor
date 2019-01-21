@@ -12,12 +12,12 @@ from sqlalchemy import create_engine
 def lambda_handler(event, context):
     ny_tz = pytz.timezone('America/New_York')
     ny_now = datetime.datetime.now(tz=ny_tz)
-    '''
+    
     if ny_now.hour != 16:
         msg = 'WRONG TIME - It is not 4pm in NY, so we are not updating with new data'
         print(msg)
         return msg
-    '''
+
     url = "https://www.alphavantage.co/query"
 
     index_arr = [
