@@ -8,3 +8,6 @@ scheduled_chart
 layer
 *.png
 !images/*
+notes.md
+*.mp4
+.DS_Store

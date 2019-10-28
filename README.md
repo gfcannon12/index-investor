@@ -1,5 +1,5 @@
 # index-investor
-## Alexa skill for stock market progress  
+## Alexa skill for daily stock market data and chart visualizations  
 
 ## Inspiration
 Everyone can benefit from a basic familiarity with financial markets.  As the markets move on a daily basis, a quick voice interaction is the ideal way to stay updated. Lots of media outlets report the daily change in the Dow, so I wanted to provide Index Investor users with additional insight.  The skill differentiates itself through its presentation of meaningful percentage comparisons across a variety of time periods.  The experience is further enhanced on Alexa devices with screens by chart visualizations. 

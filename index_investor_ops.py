@@ -8,8 +8,10 @@ import requests
 import json
 import pytz
 from sqlalchemy import create_engine
+from pandas.plotting import register_matplotlib_converters
     
 def lambda_handler(event, context):
+    register_matplotlib_converters()
     ny_tz = pytz.timezone('America/New_York')
     ny_now = datetime.datetime.now(tz=ny_tz)
     
@@ -33,8 +35,8 @@ def lambda_handler(event, context):
         },
         {
             'col': 'nasdaq',
-            'name': 'NASDAQ COMPOSITE',
-            'symbol': 'NASDAQ:IXIC'
+            'name': 'ONEQ ETF',
+            'symbol': 'ONEQ'
         }
     ]
 
@@ -63,6 +65,12 @@ def lambda_handler(event, context):
     sp500_closes = get_all_data(index_arr[0])
     djia_closes = get_all_data(index_arr[1])
     nasdaq_closes = get_all_data(index_arr[2])
+
+    sp500_len = len(sp500_closes['days'])
+    nasdaq_len = len(nasdaq_closes['days'])
+    len_diff = sp500_len - nasdaq_len
+    nas_zeroes = [0] * len_diff
+    nasdaq_closes['closes'] = nasdaq_closes['closes'] + nas_zeroes
 
     df = pd.DataFrame({'date': sp500_closes['days'], 'sp500': sp500_closes['closes'], 'djia': djia_closes['closes'], 'nasdaq': nasdaq_closes['closes']})
     print('created dataframe')
