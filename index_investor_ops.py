@@ -1,4 +1,3 @@
-import platform
 import os
 import datetime
 import boto3
@@ -25,13 +24,13 @@ def lambda_handler(event, context):
     index_arr = [
         {
             'col': 'sp500',
-            'name': 'S&P 500',
-            'symbol': 'INX'
+            'name': 'VOO',
+            'symbol': 'VOO'
         },
         {
             'col': 'djia',
-            'name': 'DOW JONES',
-            'symbol': 'DJI'
+            'name': 'DIA',
+            'symbol': 'DIA'
         },
         {
             'col': 'nasdaq',
@@ -67,12 +66,12 @@ def lambda_handler(event, context):
     nasdaq_closes = get_all_data(index_arr[2])
 
     sp500_len = len(sp500_closes['days'])
+    djia_len = len(djia_closes['days'])
     nasdaq_len = len(nasdaq_closes['days'])
-    len_diff = sp500_len - nasdaq_len
-    nas_zeroes = [0] * len_diff
-    nasdaq_closes['closes'] = nasdaq_closes['closes'] + nas_zeroes
 
-    df = pd.DataFrame({'date': sp500_closes['days'], 'sp500': sp500_closes['closes'], 'djia': djia_closes['closes'], 'nasdaq': nasdaq_closes['closes']})
+    shortest_hist = min(sp500_len, djia_len, nasdaq_len)
+
+    df = pd.DataFrame({'date': sp500_closes['days'][:shortest_hist], 'sp500': sp500_closes['closes'][:shortest_hist], 'djia': djia_closes['closes'][:shortest_hist], 'nasdaq': nasdaq_closes['closes'][:shortest_hist]})
     print('created dataframe')
     
     def make_datetime(datestr):
@@ -131,12 +130,7 @@ def lambda_handler(event, context):
         mark = mark_df[mark_df['dt'] == mark_df['dt'].max()].index
         
         filename = col + '_' + mrd_str + '.png'
-        if platform.system() == 'Darwin':
-            # Running Locally
-            filepath = './' + filename
-        else:
-            # Running on Lambda
-            filepath = '/tmp/' + filename
+        filepath = '/tmp/index_investor_' + filename
         
         plt.style.use('dark_background')
         plt.figure(figsize=[7.2,7.2])
